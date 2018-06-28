@@ -192,26 +192,40 @@ static CTestNetParams testNetParams;
 //
 // Regression test
 //
-class CRegTestParams : public CTestNetParams {
+class CRegTestParams : public CMainParams {
 public:
     CRegTestParams() {
-        pchMessageStart[0] = 0xfa;
-        pchMessageStart[1] = 0xbf;
-        pchMessageStart[2] = 0xb5;
-        pchMessageStart[3] = 0xda;
+        // The message start string is designed to be unlikely to occur in normal data.
+        // The characters are rarely used upper ASCII, not valid as UTF-8, and produce
+        // a large 4-byte int at any alignment.
+        pchMessageStart[0] = 0xcd;
+        pchMessageStart[1] = 0xf2;
+        pchMessageStart[2] = 0xc0;
+        pchMessageStart[3] = 0xef;
         bnProofOfWorkLimit = CBigNum(~uint256(0) >> 1);
-        genesis.nTime = 1411111111;
-        genesis.nBits  = bnProofOfWorkLimit.GetCompact();
-        genesis.nNonce = 1659424;
-        hashGenesisBlock = genesis.GetHash();
+        vAlertPubKey = ParseHex("0471dc165db490094d35cde15b1f5d755fa6ad6f2b5ed0f340e3f17f57389c3c2af113a8cbcc885bde73305a553b5640c83021128008ddf882e856336269080496");
         nDefaultPort = 18444;
+        nRPCPort = 26174;
+
         strDataDir = "regtest";
-//        MineGenesis(genesis);
-        assert(hashGenesisBlock == uint256("0x00000d97ffc6d5e27e78954c5bf9022b081177756488f44780b4f3c2210b1645"));
+        // Modify the regtest genesis block so the timestamp is valid for a later start.
+        genesis.nBits  = bnProofOfWorkLimit.GetCompact();
+        genesis.nNonce = 2433759;
+        genesis.nTime  = 1494909211;
 
-        vSeeds.clear();  // Regtest mode doesn't have any DNS seeds.
+        hashGenesisBlock = genesis.GetHash();
+
+        assert(hashGenesisBlock == uint256("0x93925104d664314f581bc7ecb7b4bad07bcfabd1cfce4256dbd2faddcf53bd1f"));
+
+        vFixedSeeds.clear();
+        vSeeds.clear();
+
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 65); // stratis test net start with T
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 196);
+        base58Prefixes[SECRET_KEY]     = std::vector<unsigned char>(1, 65 + 128);
+
+        nLastPOWBlock = 0x7fffffff;
     }
-
     virtual bool RequireRPCPassword() const { return false; }
     virtual Network NetworkID() const { return CChainParams::REGTEST; }
 };
