@@ -61,10 +61,8 @@ static const unsigned int MIN_CONFIRMATIONS_SF_ACTIVATION_HEIGHT_MAINNET = 94000
 static const unsigned int MIN_CONFIRMATIONS_SF_ACTIVATION_HEIGHT_REGTESTNET = 2000;
 
 inline unsigned int GetStakeMinConfirmations(unsigned int height) {
-    if (TestNet())
+    if (TestNet() || RegTest())
         return height < MIN_CONFIRMATIONS_SF_ACTIVATION_HEIGHT_TESTNET ? 10 : 20;
-    else if (RegTest())
-        return height < MIN_CONFIRMATIONS_SF_ACTIVATION_HEIGHT_REGTESTNET ? 5 : 10;
     else
         return height < MIN_CONFIRMATIONS_SF_ACTIVATION_HEIGHT_MAINNET ? 50 : 500;
 }
