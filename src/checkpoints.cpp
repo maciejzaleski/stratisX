@@ -69,15 +69,11 @@ namespace Checkpoints
         ( 400000, uint256("0xb6abcb933d3e3590345ca5d3abb697461093313f8886568ac8ae740d223e56f6") )
     ;
 
-    // Regtest has only checkpoint for the genesis block
-    static MapCheckpoints mapCheckpointsRegtest =
-        boost::assign::map_list_of
-        ( 0,      uint256("0x93925104d664314f581bc7ecb7b4bad07bcfabd1cfce4256dbd2faddcf53bd1f") )
-    ;
-
     bool CheckHardened(int nHeight, const uint256& hash)
     {
-        MapCheckpoints& checkpoints = (TestNet() ? mapCheckpointsTestnet : RegTest() ? mapCheckpointsRegtest : mapCheckpoints);
+        if (RegTest()) return true;
+
+        MapCheckpoints& checkpoints = (TestNet() ? mapCheckpointsTestnet : mapCheckpoints);
 
         MapCheckpoints::const_iterator i = checkpoints.find(nHeight);
         if (i == checkpoints.end()) return true;
@@ -86,10 +82,10 @@ namespace Checkpoints
 
     int GetTotalBlocksEstimate()
     {
-        MapCheckpoints& checkpoints = (TestNet() ? mapCheckpointsTestnet : RegTest() ? mapCheckpointsRegtest : mapCheckpoints);
+        MapCheckpoints& checkpoints = (TestNet() ? mapCheckpointsTestnet : mapCheckpoints);
 
-        if (checkpoints.empty())
-            return 0;
+        if (checkpoints.empty() || RegTest()) return 0;
+        
         return checkpoints.rbegin()->first;
     }
 
