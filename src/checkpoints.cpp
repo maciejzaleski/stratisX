@@ -82,16 +82,16 @@ namespace Checkpoints
 
     int GetTotalBlocksEstimate()
     {
-        MapCheckpoints& checkpoints = (TestNet() ? mapCheckpointsTestnet : mapCheckpoints);
+        if (RegTest()) return 0;
 
-        if (checkpoints.empty() || RegTest()) return 0;
+        MapCheckpoints& checkpoints = (TestNet() ? mapCheckpointsTestnet : mapCheckpoints);
         
         return checkpoints.rbegin()->first;
     }
 
     CBlockIndex* GetLastCheckpoint(const std::map<uint256, CBlockIndex*>& mapBlockIndex)
     {
-        MapCheckpoints& checkpoints = (TestNet() ? mapCheckpointsTestnet : RegTest() ? mapCheckpointsRegtest : mapCheckpoints);
+        MapCheckpoints& checkpoints = (TestNet() ? mapCheckpointsTestnet : mapCheckpoints);
 
         BOOST_REVERSE_FOREACH(const MapCheckpoints::value_type& i, checkpoints)
         {

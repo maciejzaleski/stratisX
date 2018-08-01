@@ -2462,7 +2462,7 @@ bool LoadBlockIndex(bool fAllowNew)
 {
     LOCK(cs_main);
 
-    if (TestNet())
+    if (TestNet() || RegTest())
     {
         nCoinbaseMaturity = 10; // test maturity is 10 blocks
     }
