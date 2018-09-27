@@ -105,6 +105,7 @@ static const CRPCConvertParam vRPCConvertParams[] =
 {
     { "setgenerate", 0 },
     { "setgenerate", 1 },
+    { "generate", 0 },
     { "stop", 0 },
     { "getaddednodeinfo", 0 },
     { "sendtoaddress", 1 },

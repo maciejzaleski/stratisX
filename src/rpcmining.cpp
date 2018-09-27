@@ -721,6 +721,28 @@ Value setgenerate(const Array& params, bool fHelp)
     }
     mapArgs["-gen"] = (fGenerate ? "1" : "0");
 
-    GenerateBitcoins(fGenerate, pwalletMain, nGenProcLimit);
+    GenerateBitcoins(fGenerate, pwalletMain, nGenProcLimit, -1);
+    return Value::null;
+}
+
+Value generate(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() > 1)
+        throw runtime_error(
+            "generate [count]\n"
+            "[count] count is number of block to generate, 1 is default, -1 is unlimited\n");
+
+    bool fGenerate = true;
+	int nBlockCount = 1;
+	int nGenProcLimit = 1;
+    if (params.size() > 0)
+    {
+        nBlockCount = params[0].get_int();
+        if (nBlockCount == 0)
+            fGenerate = false;
+    }
+
+	LogPrintf("Generating number of blocks: %d\n", nBlockCount);
+    GenerateBitcoins(fGenerate, pwalletMain, nGenProcLimit, nBlockCount);
     return Value::null;
 }

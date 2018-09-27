@@ -280,6 +280,13 @@ elif cmd == "setgenerate":
 	except:
 		print "\n---An error occurred---\n"
 
+elif cmd == "generate":
+	try:
+		blockCount = raw_input("Number of blocks to generate: ")
+		print access.generate(blockCount)
+	except:
+		print "\n---An error occurred---\n"
+
 elif cmd == "settxfee":
 	try:
 		amt = raw_input("Amount:")
