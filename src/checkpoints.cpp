@@ -71,7 +71,7 @@ namespace Checkpoints
 
     bool CheckHardened(int nHeight, const uint256& hash)
     {
-        if (RegTest()) return true;
+        return true;
 
         MapCheckpoints& checkpoints = (TestNet() ? mapCheckpointsTestnet : mapCheckpoints);
 

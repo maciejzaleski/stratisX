@@ -219,6 +219,7 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
+		vSeeds.push_back(CDNSSeedData("regtesttestseednode1", "nodeba"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 65); // stratis test net start with T
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 196);
