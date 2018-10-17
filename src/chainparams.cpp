@@ -78,7 +78,8 @@ public:
         vAlertPubKey = ParseHex("0486bce1bac0d543f104cbff2bd23680056a3b9ea05e1137d2ff90eeb5e08472eb500322593a2cb06fbf8297d7beb6cd30cb90f98153b5b7cce1493749e41e0284");
         nDefaultPort = 16178;
         nRPCPort = 16174;
-        bnProofOfWorkLimit = CBigNum(~uint256(0) >> 20);
+        bnProofOfWorkLimit = CBigNum(~uint256(0) >> 1);
+        CBigNum bnProofOfWorkLimitGenesis = CBigNum(~uint256(0) >> 20);
 
         // Build the genesis block. Note that the output of the genesis coinbase cannot
         // be spent as it did not originally exist in the database.
@@ -101,7 +102,7 @@ public:
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
         genesis.nTime    = 1470467000;
-        genesis.nBits    = bnProofOfWorkLimit.GetCompact();
+        genesis.nBits    = nProofOfWorkLimitGenesis.GetCompact();
         genesis.nNonce   = 1831645;
 
         hashGenesisBlock = genesis.GetHash();
@@ -122,7 +123,7 @@ public:
 
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
-        nLastPOWBlock = 12500;
+        nLastPOWBlock = 1250;
     }
 
     virtual const CBlock& GenesisBlock() const { return genesis; }
