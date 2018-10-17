@@ -135,7 +135,7 @@ obj/scrypt-x86_64.o: scrypt-x86_64.S
 	$(CXX) -c $(xCXXFLAGS) -MMD -o $@ $<
 
 stratisd.exe: $(OBJS:obj/%=obj/%)
-	g++ $(CFLAGS) $(LDFLAGS) -o $@ $(LIBPATHS) $^ $(LIBS) -l shlwapi
+	g++ $(CFLAGS) $(LDFLAGS) -o $@ $(LIBPATHS) -static $^ $(LIBS) -l shlwapi -static-libgcc -static-libstdc++
 
 clean:
 	-del /Q stratisd
