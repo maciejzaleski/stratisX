@@ -1018,7 +1018,7 @@ const CBlockIndex* GetLastBlockIndex(const CBlockIndex* pindex, bool fProofOfSta
 unsigned int GetNextTargetRequired(const CBlockIndex* pindexLast, bool fProofOfStake)
 {
     CBigNum bnTargetLimit = fProofOfStake ? GetProofOfStakeLimit(pindexLast->nHeight) : Params().ProofOfWorkLimit();
-	if (RegTest())
+	if (true)
 		return bnTargetLimit.GetCompact();
 	
     if (pindexLast == NULL)
