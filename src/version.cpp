@@ -36,8 +36,8 @@ const std::string CLIENT_NAME("Stratis");
 // git will put "#define GIT_ARCHIVE 1" on the next line inside archives. 
 #define GIT_ARCHIVE 1
 #ifdef GIT_ARCHIVE
-#    define GIT_COMMIT_ID "Regtest-Generate-Checkpoints-SeedNode"
-#    define GIT_COMMIT_DATE "11 October 2018 13:06"
+#    define GIT_COMMIT_ID "Regtest-Generate-Checkpoints-SeedNode-Mainnet"
+#    define GIT_COMMIT_DATE "18 October 2018 11:37"
 #endif
 
 #define BUILD_DESC_FROM_COMMIT(maj,min,rev,build,commit) \
